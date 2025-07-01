@@ -4,6 +4,7 @@
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<link rel="stylesheet" href="{{ asset('public/assets/library/datetimepicker/jquery.datetimepicker.css') }}" />
 <section class="container-fluid">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-global py-2 mb-0">
@@ -13,8 +14,9 @@
     </ol>
   </nav>
 
-  <section class="manage-product card">
-    <div class="card">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
       <div class="card-header d-flex align-items-center justify-content-between bg-white py-3">
         <h1 class="card-title font-size-18 mb-0">Edit Product</h1>
         <a href="{{ route('vendor.products.index') }}" class="ra-btn ra-btn-primary d-flex align-items-center font-size-12">
@@ -149,6 +151,17 @@
             </div>
           </div>
 
+          <!-- Request Received Date -->
+          <div class="row gx-3 align-items-center mb-4">
+            <div class="col-sm-3">
+              <label class="col-form-label">Request Received Date <span class="text-danger">*</span></label>
+            </div>
+            <div class="col-sm-4">
+              <input type="text" name="request_received_date" id="request_received_date" class="form-control" value="{{ $product->request_received_date ? \Carbon\Carbon::parse($product->request_received_date)->format('d/m/Y') : '' }}" placeholder="DD/MM/YYYY">
+              <span class="text-danger error-text request-received-date-error"></span>
+            </div>
+          </div>
+
           <!-- Aliases and Tags -->
           <div class="row mb-3">
               <div class="col-md-3 d-flex align-items-center">
@@ -270,13 +283,15 @@
           </div>
         </div>
       </form>
+      </div>
     </div>
-  </section>
+  </div>
 </section>
 @endsection
 
 @section('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+<script src="{{ asset('public/assets/library/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
 $(document).ready(function () {
    
@@ -341,6 +356,13 @@ $(document).ready(function () {
     initEditor('#product_description', '.prod-des-count', '#product-description-error', true);
     initEditor('#product_specifications', '.spec-char-count');
 
+    $('#request_received_date').datetimepicker({
+        lang: 'en',
+        timepicker: false,
+        format: 'd/m/Y',
+        formatDate: 'd/m/Y',
+    }).disableKeyboard();
+
     $('#productForm').submit(function (e) {
       e.preventDefault();
       const $submitBtn = $('#submitBtn');
@@ -355,6 +377,7 @@ $(document).ready(function () {
       const product_hsn_code = $('#product_hsn_code').val();
       const product_gst = $('#product_gst').val();
       const product_dealer_type = $('#product_dealer_type').val();
+      const request_received_date = $('#request_received_date').val().trim();
       
       let hasErrors = false;
       let errorMessage = "Please fill all the mandatory fields marked with *.";
@@ -388,6 +411,11 @@ $(document).ready(function () {
 
       if (!product_dealer_type) {
           $('.product-dealer-type-error').text('Dealer type is required***');
+          hasErrors = true;
+      }
+
+      if (!request_received_date) {
+          $('.request-received-date-error').text('Request received date is required***');
           hasErrors = true;
       }
 
