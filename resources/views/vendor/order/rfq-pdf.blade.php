@@ -166,7 +166,7 @@
                                     </td>
                                     
                                     <td style="width: 35%;">
-                                        <p class="fc1"><b>Order Date : </b><?php echo date('d/m/Y', strtotime($order->created_at)); ?></p>
+                                        <p class="fc1"><b>Order Date : </b><?php echo date('d-m-Y', strtotime($order->created_at)); ?></p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -198,7 +198,7 @@
                                         <p class="fc1"><b>RFQ NO: </b><?php echo $order->rfq_id; ?></p>
                                     </td>
                                     <td style="width: 50%;">
-                                        <p class="fc1"><b>RFQ Date : </b><?php echo date('d/m/Y' ,strtotime($order->rfq->created_at)); ?></p>
+                                        <p class="fc1"><b>RFQ Date : </b><?php echo date('d-m-Y' ,strtotime($order->rfq->created_at)); ?></p>
                                     </td>
                                 </tr>
                                 <tr></tr>

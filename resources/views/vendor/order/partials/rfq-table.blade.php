@@ -21,7 +21,7 @@
 
         @forelse ($results as $result)
         <tr>
-            <td>{{ date('d/m/Y', strtotime($result->created_at)) }}</td>
+            <td>{{ date('d-m-Y', strtotime($result->created_at)) }}</td>
             <td>
                 <a href="{{ route('vendor.rfq_order.show', $result->id) }}">
                 {{ $result->po_number ?? '-' }}

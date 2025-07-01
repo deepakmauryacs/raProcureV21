@@ -51,7 +51,7 @@
             @endphp
 
             <td class="align-middle">{{ $result->rfq_id }}</td>
-            <td class="align-middle">{{ date('d/m/Y', strtotime($result->created_at)) }}</td>
+            <td class="align-middle">{{ date('d-m-Y', strtotime($result->created_at)) }}</td>
             <td>
                 @if($product)
                     {{ $product->division->division_name ?? '-' }} >

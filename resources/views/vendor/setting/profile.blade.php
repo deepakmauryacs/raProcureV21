@@ -70,7 +70,7 @@
                                                 class="text-danger">*</span></label>
                                         <input type="text" placeholder="Date format is DD/MM/YYYY" onblur="validateDateFormat(this, true);"
                                             class="form-control required date-masking" id="date_of_incorporation" name="date_of_incorporation"
-                                            value="{{ !empty($vendor->date_of_incorporation) ? date("d/m/Y", strtotime($vendor->date_of_incorporation)) : '' }}" maxlength="10">
+                                            value="{{ !empty($vendor->date_of_incorporation) ? date("d-m-Y", strtotime($vendor->date_of_incorporation)) : '' }}" maxlength="10">
                                     </div>
                                 </div>
                             </div>

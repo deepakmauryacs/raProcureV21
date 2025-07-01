@@ -23,7 +23,7 @@
             <td>{{ $result->request_id ?? '-' }}</td>
             <td>{{ $result->creater->name ?? '-' }}</td>
             <td>{{ $result->venderBuyer->legal_name ?? '-' }}</td>
-            <td>{{ date('d/m/Y', strtotime($result->created_at)) }}</td>
+            <td>{{ date('d-m-Y', strtotime($result->created_at)) }}</td>
             <td>{{ $result->issue_type}}</td>
             @php 
             if(strlen($result->description) > 20) {

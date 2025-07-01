@@ -21,7 +21,7 @@
         @forelse ($results as $result)
         <tr> 
             <td class="align-middle">{{ $result->rfq_no }}</td>
-            <td class="align-middle">{{ date('d/m/Y', strtotime($result->rfq_auction->rfq->created_at)) }}</td>
+            <td class="align-middle">{{ date('d-m-Y', strtotime($result->rfq_auction->rfq->created_at)) }}</td>
             <td>
                 @php
                     $variant = $result->rfq_auction->rfq_auction_variant->first();
@@ -37,7 +37,7 @@
             </td>
             <td class="align-middle">{{ $result->rfq_auction->buyer->legal_name ?? '-' }}</td>
             <td class="align-middle">{{ $result->rfq_auction->buyer->users->name ?? '-' }}</td>
-            <td class="align-middle">{{ date('d/m/Y', strtotime($result->rfq_auction->auction_date)) }}</td>
+            <td class="align-middle">{{ date('d-m-Y', strtotime($result->rfq_auction->auction_date)) }}</td>
             <td class="align-middle">{{ date('h:i A', strtotime($result->rfq_auction->auction_start_time)) }} To {{ date('h:i A', strtotime($result->rfq_auction->auction_end_time)) }}</td>
             <td class="align-middle"></td>
             <td class="align-middle">

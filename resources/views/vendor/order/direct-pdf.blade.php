@@ -164,7 +164,7 @@
                                 <tr>
                                     <td style="width: 45%;">
                                         <p class="fc1"><b>Order Date :
-                                            </b><?php echo date('d/m/Y', strtotime($order->created_at)); ?></p>
+                                            </b><?php echo date('d-m-Y', strtotime($order->created_at)); ?></p>
                                     </td>
                                 </tr>
                                 <tr>
