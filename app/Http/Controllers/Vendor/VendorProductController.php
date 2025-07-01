@@ -247,6 +247,7 @@ class VendorProductController extends Controller
             $product->dealer_type_id = $request->dealer_type;
             $product->gst_id = $request->gst;
             $product->hsn_code = $request->hsn_code;
+            $product->request_received_date = Carbon::createFromFormat('d/m/Y', $request->request_received_date)->format('Y-m-d');
             $product->dealership = $request->dealership;
             $product->brand = $request->brand;
             $product->country_of_origin = $request->country_origin;
@@ -389,17 +390,10 @@ class VendorProductController extends Controller
             $product->dealer_type_id = $request->dealer_type ?? '1';
             $product->gst_id = $request->gst;
             $product->hsn_code = $request->hsn_code;
-            $product->specification = $request->specifications;
-            $product->size = $request->size;
-            $product->certificates = $request->certification;
             $product->dealership = $request->dealership;
-            $product->packaging = $request->packaging;
-            $product->model_no = $request->model_no;
-            $product->gorw = $request->guarantee_warranty;
-            $product->gorw_year = $request->warranty_years ?? 0;
-            $product->gorw_month = $request->warranty_months ?? 0;
             $product->brand = $request->brand;
             $product->country_of_origin = $request->country_origin;
+            $product->request_received_date = Carbon::createFromFormat('d/m/Y', $request->request_received_date)->format('Y-m-d');
             $product->vendor_id = $vendorId;
             $product->added_by_user_id = auth()->id();
             $product->edit_status = 3;
@@ -437,8 +431,6 @@ class VendorProductController extends Controller
             // Other file uploads
             $fileFields = [
                 'product_catalogue' => 'catalogue',
-                'spec_attachment' => 'specification_file',
-                'cert_attachment' => 'certificates_file',
                 'dealership_attachment' => 'dealership_file',
             ];
 
@@ -521,6 +513,7 @@ class VendorProductController extends Controller
             'description'  => 'required',
             'hsn_code'     => 'required|digits_between:2,8',
             'gst'          => 'required',
+            'request_received_date' => 'required|date_format:d/m/Y',
         ]);
     }
 
