@@ -19,7 +19,7 @@
 
         @forelse ($results as $result)
         <tr>
-            <td>{{ date('d/m/Y', strtotime($result->created_at)) }}</td>
+            <td>{{ date('d-m-Y', strtotime($result->created_at)) }}</td>
             <td>
                 <a href="{{ route('vendor.direct_order.show', $result->id) }}">
                 {{ $result->manual_po_number ?? '-' }}

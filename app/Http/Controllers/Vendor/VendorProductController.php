@@ -200,12 +200,7 @@ class VendorProductController extends Controller
     public function store(Request $request)
     {   
         
-        $validator = Validator::make($request->all(), [
-            'product_name' => 'required',
-            'description' => 'required',
-            'hsn_code' => 'required|digits_between:2,8',
-            'gst' => 'required',
-        ]);
+        $validator = $this->validateProductData($request->all());
 
         if ($validator->fails()) {
             return response()->json([
@@ -349,12 +344,7 @@ class VendorProductController extends Controller
         $vendorId = getParentUserId();
         $product = VendorProduct::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'product_name' => 'required',
-            'description' => 'required',
-            'hsn_code' => 'required|digits_between:2,8',
-            'gst' => 'required',
-        ]);
+        $validator = $this->validateProductData($request->all());
 
         if ($validator->fails()) {
             return response()->json([
@@ -374,6 +364,13 @@ class VendorProductController extends Controller
                 'message' => 'Product Description is Required',
             ]);
         }
+
+        $tagErrors = validate_product_tags(
+            $request->tag,
+            $request->product_id,
+            $vendorId,
+            false
+        );
 
         if (!empty($tagErrors)) {
             return response()->json([
@@ -403,7 +400,7 @@ class VendorProductController extends Controller
             $product->gorw_month = $request->warranty_months ?? 0;
             $product->brand = $request->brand;
             $product->country_of_origin = $request->country_origin;
-            $product->vendor_id = auth()->id();
+            $product->vendor_id = $vendorId;
             $product->added_by_user_id = auth()->id();
             $product->edit_status = 3;
             $product->approval_status = 4;
@@ -459,8 +456,7 @@ class VendorProductController extends Controller
                     // Create a filename using timestamp, replace underscores with hyphens, convert to lowercase, and remove spaces
                     $fileName = strtolower(time() . '-' . str_replace(['_', ' ', '%20'], ['-', '', ''], pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))) . '.' . $file->getClientOriginalExtension();
 
-                    // Remove any space after the timestamp and before the filename
-                    $filename = str_replace(' ', '', $fileName);
+                    $fileName = str_replace(' ', '', $fileName);
 
                     $file->move($targetDirectory, $fileName);
                     $product->$column = $fileName;
@@ -513,6 +509,19 @@ class VendorProductController extends Controller
         $product->status = $request->status;
         $product->save();
         return response()->json(['success' => true, 'message' => 'Status updated successfully']);
+    }
+
+    /**
+     * Validate product form data.
+     */
+    private function validateProductData(array $data)
+    {
+        return Validator::make($data, [
+            'product_name' => 'required',
+            'description'  => 'required',
+            'hsn_code'     => 'required|digits_between:2,8',
+            'gst'          => 'required',
+        ]);
     }
 
     // Function to check if alias exists in products and product_alias

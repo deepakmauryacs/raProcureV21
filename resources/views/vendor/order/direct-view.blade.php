@@ -47,7 +47,7 @@ ul.add-FQR-list li {
             <div class="card-body">
                 <ul class="add-FQR-list">
                     <li>Order No: {{ $order->manual_po_number }}</li>
-                    <li>Order Date: {{ date('d/m/Y', strtotime($order->created_at)) }}</li>
+                    <li>Order Date: {{ date('d-m-Y', strtotime($order->created_at)) }}</li>
                     <li>Buyer Name: {{ $order->buyer->legal_name ?? '-' }}</li>
                     <li>Branch/Unit : {{$order->order_products[0]->inventory->branch->name}}</li>
                 </ul>
