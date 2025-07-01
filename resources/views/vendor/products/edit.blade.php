@@ -352,16 +352,16 @@ $(document).ready(function () {
             });
     }
 
-    // Initialize both editors
+    // Initialize product description editor
     initEditor('#product_description', '.prod-des-count', '#product-description-error', true);
-    initEditor('#product_specifications', '.spec-char-count');
 
     $('#request_received_date').datetimepicker({
         lang: 'en',
         timepicker: false,
         format: 'd/m/Y',
         formatDate: 'd/m/Y',
-    }).disableKeyboard();
+    });
+    $('#request_received_date').disableKeyboard();
 
     $('#productForm').submit(function (e) {
       e.preventDefault();
