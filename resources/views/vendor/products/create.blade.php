@@ -423,6 +423,9 @@ $(document).ready(function () {
       if (!request_received_date) {
           $('.request-received-date-error').text('Request received date is required***');
           hasErrors = true;
+      } else if (!/^\d{2}\/\d{2}\/\d{4}$/.test(request_received_date)) {
+          $('.request-received-date-error').text('Date must be in DD/MM/YYYY format.');
+          hasErrors = true;
       }
 
       if (hasErrors) {
