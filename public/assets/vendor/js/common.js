@@ -225,3 +225,14 @@ document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(closeBtn => {
 });
 // End of Prevent aria-hidden Warning while close Modal
 
+// Utility function to disable keyboard input on elements like date pickers
+// This mirrors the helper defined in the buyer panel scripts so that vendor
+// pages can safely call `.disableKeyboard()` without JavaScript errors.
+$.fn.disableKeyboard = function () {
+  return this.each(function () {
+    $(this).on('keypress', function (event) {
+      event.preventDefault();
+    });
+  });
+};
+
