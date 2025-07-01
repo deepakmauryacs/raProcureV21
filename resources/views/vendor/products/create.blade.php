@@ -373,7 +373,8 @@ $(document).ready(function () {
         timepicker: false,
         format: 'd/m/Y',
         formatDate: 'd/m/Y',
-    }).disableKeyboard();
+    });
+    $('#request_received_date').disableKeyboard();
 
     $('#productForm').submit(function (e) {
       e.preventDefault();
