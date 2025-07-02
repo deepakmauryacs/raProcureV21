@@ -228,11 +228,15 @@ document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(closeBtn => {
 // Utility function to disable keyboard input on elements like date pickers
 // This mirrors the helper defined in the buyer panel scripts so that vendor
 // pages can safely call `.disableKeyboard()` without JavaScript errors.
-$.fn.disableKeyboard = function () {
-  return this.each(function () {
-    $(this).on('keypress', function (event) {
-      event.preventDefault();
+// Define the plugin only if it doesn't already exist to avoid conflicts when
+// multiple versions of jQuery are present.
+if (typeof $.fn.disableKeyboard !== 'function') {
+  $.fn.disableKeyboard = function () {
+    return this.each(function () {
+      $(this).on('keypress', function (event) {
+        event.preventDefault();
+      });
     });
-  });
-};
+  };
+}
 
