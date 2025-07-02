@@ -289,12 +289,16 @@ document.querySelectorAll('input[type="file"]').forEach(function (input) {
             });
         });
     };
-    $.fn.disableKeyboard = function () {
-        return this.each(function () {
-            $(this).on('keypress', function (event) {
-                event.preventDefault();
+    // Define disableKeyboard only once to avoid conflicts if multiple jQuery
+    // versions are loaded.
+    if (typeof $.fn.disableKeyboard !== 'function') {
+        $.fn.disableKeyboard = function () {
+            return this.each(function () {
+                $(this).on('keypress', function (event) {
+                    event.preventDefault();
+                });
             });
-        });
-    };
+        };
+    }
     
 })(jQuery);
